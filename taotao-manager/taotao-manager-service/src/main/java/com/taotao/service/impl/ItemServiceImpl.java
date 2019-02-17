@@ -21,7 +21,6 @@ public class ItemServiceImpl implements ItemService {
     private TbItemMapper tbItemMapper;
     @Override
     public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
-        System.out.println("test");
         //设置分页信息
         if (page==null||page==0) { page = 1; }
         if (rows==null||rows==0) {rows = 30 ;}
