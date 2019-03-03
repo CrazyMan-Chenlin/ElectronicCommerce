@@ -1,11 +1,12 @@
 package com.taotao.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author chenlin
  */
-public class TbContent {
+public class TbContent implements Serializable {
     private Long id;
 
     private Long categoryId;

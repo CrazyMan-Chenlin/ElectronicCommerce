@@ -1,8 +1,12 @@
 package com.taotao.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TbUser {
+/**
+ * @author chenlin
+ */
+public class TbUser implements Serializable {
     private Long id;
 
     private String username;

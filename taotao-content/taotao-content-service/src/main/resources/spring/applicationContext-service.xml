@@ -17,7 +17,7 @@
 	http://www.springframework.org/schema/util
 	http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
-    <context:component-scan base-package="com.taotao.content.service.impl"/>
+    <context:component-scan base-package="com.taotao.content.service"/>
     <!-- 使用dubbo发布服务 -->
     <!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="taotao-content"/>

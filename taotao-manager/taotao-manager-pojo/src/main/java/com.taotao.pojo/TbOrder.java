@@ -1,8 +1,12 @@
 package com.taotao.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TbOrder {
+/**
+ * @author chenlin
+ */
+public class TbOrder implements Serializable {
     private String orderId;
 
     private String payment;
