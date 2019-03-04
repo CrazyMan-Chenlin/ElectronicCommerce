@@ -18,7 +18,7 @@ public class ItemCatController {
      @Autowired
     private ItemCatService itemCatService;
      @RequestMapping("/item/cat/list")
-    @ResponseBody
+     @ResponseBody
     public List<EasyUITreeNode> getItemCatList(@RequestParam(value = "id",defaultValue = "0")Long parentId){
          return  itemCatService.getItemCatList(parentId);
      }

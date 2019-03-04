@@ -7,6 +7,16 @@ import java.util.Date;
  * @author chenlin
  */
 public class TbItemDesc implements Serializable {
+    @Override
+    public String toString() {
+        return "TbItemDesc{" +
+                "itemId=" + itemId +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", itemDesc='" + itemDesc + '\'' +
+                '}';
+    }
+
     private Long itemId;
 
     private Date created;

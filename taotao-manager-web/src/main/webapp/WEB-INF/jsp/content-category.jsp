@@ -81,9 +81,15 @@ function menuHandler(item){
 	}else if(item.name === "delete"){
 		$.messager.confirm('确认','确定删除名为 '+node.text+' 的分类吗？',function(r){
 			if(r){
-				$.post("/content/category/delete/",{id:node.id},function(){
-					tree.tree("remove",node.target);
-				});	
+                $.post("/content/category/selectIsParentId/",{id:node.id},function (data) {
+                    if(data){
+                        $.messager.alert('提示','该节点是父节点,无法删除!');
+                    }else{
+                        $.post("/content/category/delete/",{id:node.id,parentId:node.parentId},function(){
+                            tree.tree("remove",node.target);
+                        });
+                    }
+                })
 			}
 		});
 	}

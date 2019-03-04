@@ -17,7 +17,7 @@
         </tr>
     </thead>
 </table>
-<div id="itemEditWindow" class="easyui-window" title="编辑商品" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/rest/page/item-edit'" style="width:80%;height:80%;padding:10px;">
+<div id="itemEditWindow" class="easyui-window" title="编辑商品" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/item-edit'" style="width:80%;height:80%;padding:10px;">
 </div>
 <script>
 
@@ -31,7 +31,6 @@
     	ids = ids.join(",");
     	return ids;
     }
-    
     var toolbar = [{
         text:'新增',
         iconCls:'icon-add',
@@ -51,7 +50,6 @@
         		$.messager.alert('提示','只能选择一个商品!');
         		return ;
         	}
-        	
         	$("#itemEditWindow").window({
         		onLoad :function(){
         			//回显数据
@@ -60,7 +58,7 @@
         			$("#itemeEditForm").form("load",data);
         			
         			// 加载商品描述
-        			$.getJSON('/rest/item/query/item/desc/'+data.id,function(_data){
+        			$.getJSON('/rest/item/query/item/desc?id='+data.id,function(_data){
         				if(_data.status == 200){
         					//UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
         					itemEditEditor.html(_data.data.itemDesc);

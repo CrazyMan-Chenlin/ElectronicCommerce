@@ -25,4 +25,28 @@ public interface ContentCategoryService {
      * @return
      */
     TaotaoResult createContentCategory(long parentId,String name);
+
+    /**
+     * 本身的节点
+     * 修改的节点名称
+     * @param id
+     * @param name
+     * @return
+     */
+    TaotaoResult updateContentCategory(long id,String name);
+
+    /**
+     * 根据id删除数据，通过父节点id决定是否将父节点变为子节点
+     * @param id
+     * @param parentId
+     * @return
+     */
+    TaotaoResult deleteContentContentCategory(long id,long parentId);
+
+    /**
+     * 判断是否是父节点
+     * @param id
+     * @return
+     */
+   Boolean selectIsParentId(long id);
 }

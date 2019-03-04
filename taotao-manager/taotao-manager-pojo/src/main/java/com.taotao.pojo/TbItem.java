@@ -1,13 +1,12 @@
 package com.taotao.pojo;
-
 import java.io.Serializable;
 import java.util.Date;
-
 /**
  * @author chenlin
  */
 public class TbItem implements Serializable {
-    private Long id;
+
+     private Long id;
 
     private String title;
 
@@ -22,6 +21,23 @@ public class TbItem implements Serializable {
     private String image;
 
     private Long cid;
+
+    @Override
+    public String toString() {
+        return "TbItem{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", sellPoint='" + sellPoint + '\'' +
+                ", price=" + price +
+                ", num=" + num +
+                ", barcode='" + barcode + '\'' +
+                ", image='" + image + '\'' +
+                ", cid=" + cid +
+                ", status=" + status +
+                ", created=" + created +
+                ", updated=" + updated +
+                '}';
+    }
 
     private Byte status;
 

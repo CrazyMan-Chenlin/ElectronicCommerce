@@ -6,11 +6,7 @@ import java.io.Serializable;
  * @author chenlin
  */
 public class TaotaoResult implements Serializable{
-    /**
-     * 状态信息
-     */
     private Integer status;
-
     /**
      * 响应信息
      */

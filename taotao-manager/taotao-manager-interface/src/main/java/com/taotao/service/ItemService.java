@@ -23,4 +23,34 @@ public interface ItemService {
      * @return
      */
      TaotaoResult saveItem(TbItem item,String desc);
+
+    /**
+     * 根据id删除数据
+     * @param ids
+     * @return
+     */
+     TaotaoResult deleteItem(String[] ids);
+
+    /**
+     * 修改商品状态
+     * @param ids
+     * @param status
+     * @return
+     */
+     TaotaoResult updateItemStatus(String[] ids,String status);
+
+    /**
+     * 查询商品描述
+     * @param id
+     * @return
+     */
+     TaotaoResult selectItemDesc(long id);
+
+    /**
+     * 更新商品信息
+     * @param tbItem
+     * @param desc
+     * @return
+     */
+     TaotaoResult updateItem(TbItem tbItem,String desc);
 }

@@ -70,4 +70,41 @@ public class ItemServiceImpl implements ItemService {
         //7.taotaoresult ok
         return TaotaoResult.ok();
     }
+
+    @Override
+    public TaotaoResult deleteItem(String[] ids) {
+        for (int i = 0; i <ids.length ; i++) {
+            tbItemMapper.deleteByPrimaryKey(Long.parseLong(ids[i]));
+            tbItemDescMapper.deleteByPrimaryKey(Long.parseLong(ids[i]));
+        }
+        return TaotaoResult.ok(null);
+    }
+
+    @Override
+    public TaotaoResult updateItemStatus(String[] ids,String sta) {
+        for (int i = 0; i <ids.length ; i++) {
+            TbItem tbItem = tbItemMapper.selectByPrimaryKey(Long.parseLong(ids[i]));
+            tbItem.setStatus(Byte.parseByte(sta));
+            tbItemMapper.updateByPrimaryKey(tbItem);
+        }
+        return TaotaoResult.ok(null);
+    }
+
+    @Override
+    public TaotaoResult selectItemDesc(long id) {
+        TbItemDesc itemDesc = tbItemDescMapper.selectByPrimaryKey(id);
+        return TaotaoResult.ok(itemDesc);
+    }
+
+    @Override
+    public TaotaoResult updateItem(TbItem tbItem, String desc) {
+        tbItem.setUpdated(new Date());
+        tbItemMapper.updateByPrimaryKeySelective(tbItem);
+        TbItemDesc tbItemDesc = new TbItemDesc();
+        tbItemDesc.setItemId(tbItem.getId());
+        tbItemDesc.setItemDesc(desc);
+        tbItemDesc.setUpdated(tbItem.getUpdated());
+        tbItemDescMapper.updateByPrimaryKeySelective(tbItemDesc);
+        return TaotaoResult.ok(null);
+    }
 }
