@@ -11,6 +11,9 @@
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
   </resultMap>
+  <select id="selectNameById" resultType="String">
+    select name from tb_item_cat where id = #{id};
+  </select>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

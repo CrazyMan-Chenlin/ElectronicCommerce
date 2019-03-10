@@ -29,4 +29,5 @@ http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 <dubbo:service ref="testServiceImpl" interface="com.taotao.service.TestService"/>
 <dubbo:service ref="itemServiceImpl" interface="com.taotao.service.ItemService"/>
  <dubbo:service ref="itemCatServiceImpl" interface="com.taotao.service.ItemCatService" />
+    <dubbo:service ref="itemParamServiceImpl" interface="com.taotao.service.ItemParamService" />
 </beans>

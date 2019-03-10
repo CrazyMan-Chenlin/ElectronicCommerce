@@ -17,7 +17,7 @@
 </div>
 <script>
 
-	function formatItemParamData(value , index){
+	function formatItemParamData(value ,index){
 		var json = JSON.parse(value);
 		var array = [];
 		$.each(json,function(i,e){

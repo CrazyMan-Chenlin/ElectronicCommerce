@@ -5,6 +5,9 @@ import com.taotao.pojo.TbItemParamExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author chenlin
+ */
 public interface TbItemParamMapper {
     long countByExample(TbItemParamExample example);
 

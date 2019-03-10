@@ -3,9 +3,11 @@
 <mapper namespace="com.taotao.mapper.TbItemParamMapper">
   <resultMap id="BaseResultMap" type="com.taotao.pojo.TbItemParam">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="item_cat_id" jdbcType="BIGINT" property="itemCatId" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+    <result column="item_cat_id" jdbcType="BIGINT" property="itemCatId"/>
+    <association property="itemCatName"  column="item_cat_id"
+                 select="com.taotao.mapper.TbItemCatMapper.selectNameById"/>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taotao.pojo.TbItemParam">
     <result column="param_data" jdbcType="LONGVARCHAR" property="paramData" />

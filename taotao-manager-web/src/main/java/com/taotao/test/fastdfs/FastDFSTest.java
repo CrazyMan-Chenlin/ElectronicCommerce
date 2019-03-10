@@ -38,5 +38,4 @@ public class FastDFSTest {
         String file = fastDFSClient.uploadFile("C:\\Users\\chenlin\\Pictures\\Saved Pictures/kobe.jpg");
         System.out.println(file);
     }
-
 }
