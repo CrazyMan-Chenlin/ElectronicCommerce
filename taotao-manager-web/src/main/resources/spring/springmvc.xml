@@ -29,10 +29,11 @@
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="taotao-manager-web" />
 	<dubbo:registry protocol="zookeeper" address="192.168.111.14:2181"/>
-	<dubbo:reference interface="com.taotao.service.TestService" id="testService"  timeout="30000" check="false"/>
-    <dubbo:reference interface="com.taotao.service.ItemService" id="itemService"  timeout="30000" check="false"/>
-	<dubbo:reference interface="com.taotao.service.ItemCatService" id="itemCatService"  timeout="30000" check="false"/>
+	<dubbo:reference interface="com.taotao.service.TestService" id="testService"  timeout="300000" check="false"/>
+    <dubbo:reference interface="com.taotao.service.ItemService" id="itemService"  timeout="300000" check="false"/>
+	<dubbo:reference interface="com.taotao.service.ItemCatService" id="itemCatService"  timeout="300000" check="false"/>
     <dubbo:reference interface="com.taotao.content.service.ContentCategoryService" id="contentCategoryService" timeout="30000"/>
-	<dubbo:reference interface="com.taotao.service.ItemParamService" id="itemParamService"  timeout="30000" check="false"/>
-	<dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService"  timeout="30000" check="false"/>
+	<dubbo:reference interface="com.taotao.service.ItemParamService" id="itemParamService"  timeout="300000" check="false"/>
+	<dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService"  timeout="300000" check="false"/>
+	<dubbo:reference interface="com.taotao.search.service.SearchItemService" id="searchItemService"  timeout="300000" check="false"/>
 </beans>

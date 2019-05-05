@@ -1,5 +1,4 @@
 package com.taotao.service.impl;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.pojo.EasyUIDataGridResult;
@@ -12,11 +11,13 @@ import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
-
+import javax.annotation.Resource;
+import javax.jms.*;
 import java.util.Date;
 import java.util.List;
-
 /**
  * @author chenlin
  */
@@ -24,6 +25,10 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
     @Autowired
     private TbItemMapper tbItemMapper;
+    @Autowired
+    private JmsTemplate jmsTemplate;
+    @Resource(name="topicDestination")
+    private Destination topicDestination;
     @Override
     public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
         //设置分页信息
@@ -45,8 +50,20 @@ public class ItemServiceImpl implements ItemService {
     }
     @Autowired
     TbItemDescMapper tbItemDescMapper;
+
     @Override
-    public TaotaoResult saveItem(TbItem item, String desc) {
+    public TaotaoResult sendMessage(TbItem item, String desc){
+        Long itemId = this.saveItem(item, desc);
+        jmsTemplate.send(topicDestination, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                return session.createTextMessage(itemId + "");
+            }
+        });
+        return TaotaoResult.ok(null);
+    }
+    @Override
+    public Long saveItem(TbItem item, String desc) {
         // 1.生成商品id
         long itemId = IDUtils.genItemId();
         //2.补全TbItem对象的属性
@@ -68,7 +85,7 @@ public class ItemServiceImpl implements ItemService {
         //6.向商品描述表插入数据
         tbItemDescMapper.insert(itemDesc);
         //7.taotaoresult ok
-        return TaotaoResult.ok();
+        return itemId;
     }
 
     @Override

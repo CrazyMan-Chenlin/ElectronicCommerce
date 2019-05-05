@@ -7,7 +7,8 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 
+ *
+ * @author chenlin
  */
 public class JsonUtils {
 

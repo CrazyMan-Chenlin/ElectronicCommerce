@@ -25,8 +25,8 @@ public class ItemController {
         return itemService.getItemList(page,rows);
     }
     @RequestMapping("/item/save")
-    public TaotaoResult saveItem(TbItem item, String desc) {
-        return itemService.saveItem(item, desc);
+    public TaotaoResult sendMessage(TbItem item, String desc) {
+        return itemService.sendMessage(item, desc);
     }
 
     /**

@@ -22,7 +22,7 @@ public interface ItemService {
      * @param desc
      * @return
      */
-     TaotaoResult saveItem(TbItem item,String desc);
+     Long saveItem(TbItem item,String desc);
 
     /**
      * 根据id删除数据
@@ -53,5 +53,13 @@ public interface ItemService {
      * @return
      */
      TaotaoResult updateItem(TbItem tbItem,String desc);
+
+    /**
+     * 发送订阅消息
+     * @param item
+     * @param desc
+     * @return
+     */
+     TaotaoResult sendMessage(TbItem item, String desc);
 
 }

@@ -16,6 +16,7 @@
         <module>../taotao-content</module>
         <module>../taotao-search</module>
         <module>../taotao-search-web</module>
+        <module>../Test-activeMq</module>
     </modules>
     <properties>
         <junit.version>4.12</junit.version>
@@ -27,7 +28,7 @@
         <slf4j.version>1.6.4</slf4j.version>
         <jackson.version>2.4.2</jackson.version>
         <druid.version>1.0.9</druid.version>
-        <httpclient.version>4.3.5</httpclient.version>
+        <httpclient.version>4.5.3</httpclient.version>
         <jstl.version>1.2</jstl.version>
         <servlet-api.version>2.5</servlet-api.version>
         <jsp-api.version>2.0</jsp-api.version>
@@ -39,18 +40,24 @@
         <jsqlparser.version>0.9.1</jsqlparser.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <jedis.version>2.9.0</jedis.version>
-        <solrj.version>4.10.3</solrj.version>
+        <solrj.version>7.3.1</solrj.version>
         <dubbo.version>2.6.0</dubbo.version>
         <zookeeper.version>3.4.10</zookeeper.version>
         <zkclient.version>0.1</zkclient.version>
         <activemq.version>5.13.0</activemq.version>
         <freemarker.version>2.3.23</freemarker.version>
         <quartz.version>2.2.2</quartz.version>
+        <lombok.version>1.18.6</lombok.version>
     </properties>
     <dependencies>
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
             <!-- 时间操作组件 -->
             <dependency>
                 <groupId>joda-time</groupId>
@@ -280,6 +287,5 @@
             </plugins>
         </pluginManagement>
     </build>
-
 
 </project>
