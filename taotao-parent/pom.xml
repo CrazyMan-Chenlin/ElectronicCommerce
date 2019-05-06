@@ -17,6 +17,7 @@
         <module>../taotao-search</module>
         <module>../taotao-search-web</module>
         <module>../Test-activeMq</module>
+        <module>../taotao-item-web</module>
     </modules>
     <properties>
         <junit.version>4.12</junit.version>

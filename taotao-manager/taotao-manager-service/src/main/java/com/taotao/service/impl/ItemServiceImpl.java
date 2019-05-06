@@ -4,16 +4,21 @@ import com.github.pagehelper.PageInfo;
 import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.common.util.IDUtils;
+import com.taotao.common.util.JsonUtils;
+import com.taotao.manager.jedis.JedisClientCluster;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import javax.jms.*;
 import java.util.Date;
@@ -29,6 +34,12 @@ public class ItemServiceImpl implements ItemService {
     private JmsTemplate jmsTemplate;
     @Resource(name="topicDestination")
     private Destination topicDestination;
+    @Autowired
+    private JedisClientCluster jedisCluster;
+    @Value("${ItemInfoKey}")
+    private  String itemInfoKey;
+    @Value("${ItemInfoKeyExpire}")
+    private  Integer itemInfoKeyExpire;
     @Override
     public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
         //设置分页信息
@@ -61,6 +72,69 @@ public class ItemServiceImpl implements ItemService {
             }
         });
         return TaotaoResult.ok(null);
+    }
+
+    @Override
+    public TbItem getItemById(Long itemId) {
+        // 添加缓存的原则是，不能够影响现在有的业务逻辑
+        // 查询缓存
+        try {
+            if (itemId != null) {
+                // 从缓存中查询
+                String jsonString = jedisCluster.get(itemInfoKey + ":" + itemId + ":BASE");
+                if (StringUtils.isNotBlank(jsonString)) {
+                    // 不为空则直接返回
+                    jedisCluster.expire(itemInfoKey + ":" + itemId + ":BASE", itemInfoKeyExpire);
+                    return JsonUtils.jsonToPojo(jsonString, TbItem.class);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        TbItem tbItem = tbItemMapper.selectByPrimaryKey(itemId);
+        // 添加缓存
+        try {
+            // 注入redisjedisCluster
+            if (tbItem != null){
+                jedisCluster.set(itemInfoKey + ":" + itemId + ":BASE", JsonUtils.objectToJson(tbItem));
+                jedisCluster.expire(itemInfoKey + ":" + itemId + ":BASE", itemInfoKeyExpire);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tbItem;
+    }
+
+    @Override
+    public TbItemDesc getItemDescById(Long itemId) {
+        // 查询缓存
+        try {
+            if (itemId != null) {
+                // 从缓存中查询
+                String jsonString = jedisCluster.get(itemInfoKey + ":" + itemId + ":DESC");
+                if (StringUtils.isNotBlank(jsonString)) {
+                    // 不为空则直接返回
+                    jedisCluster.expire(itemInfoKey + ":" + itemId + ":DESC", itemInfoKeyExpire);
+                    return JsonUtils.jsonToPojo(jsonString, TbItemDesc.class);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(itemId);
+           // 添加缓存
+        try {
+            // 注入redisjedisCluster
+            if (tbItemDesc != null){
+                jedisCluster.set(itemInfoKey + ":" + itemId + ":DESC", JsonUtils.objectToJson(tbItemDesc));
+                jedisCluster.expire(itemInfoKey + ":" + itemId + ":DESC", itemInfoKeyExpire);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tbItemDesc;
     }
     @Override
     public Long saveItem(TbItem item, String desc) {

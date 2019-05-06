@@ -1,8 +1,10 @@
 package com.taotao.content.service.jedis;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import redis.clients.jedis.JedisCluster;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import redis.clients.jedis.JedisCluster;
+@Component
 public class JedisClientCluster implements JedisClient {
 
     @Autowired

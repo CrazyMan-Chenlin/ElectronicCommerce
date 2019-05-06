@@ -6,6 +6,7 @@ import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.common.util.JsonUtils;
 import com.taotao.content.service.ContentService;
 import com.taotao.content.service.jedis.JedisClient;
+import com.taotao.content.service.jedis.JedisClientCluster;
 import com.taotao.mapper.TbContentMapper;
 import com.taotao.pojo.TbContent;
 import com.taotao.pojo.TbContentExample;
@@ -20,7 +21,7 @@ import java.util.List;
 @Service
 public class ContentServiceImpl implements ContentService {
     @Autowired
-    JedisClient jedisClient;
+    JedisClientCluster jedisClient;
     @Autowired
     TbContentMapper tbContentMapper;
     @Value(value = "${CONTENT_KEY}")
